@@ -36,12 +36,13 @@ import Test from "../react-hook-form";
 function App() {
   // const [state, dispatch] = useReducer(reducer, initialState);
   // console.log(state);
+  const varr = "hi";
 
   return (
     <div className="App">
       {/* <Home /> */}
       {/* <Todo /> */}
-      <Test />
+      <Test id={varr} />
       {/* <Testing /> */}
       {/* <Switch>
         <Route exact path="/"></Route>
@@ -52,14 +53,6 @@ function App() {
       </Switch> */}
     </div>
   );
-}
-
-function About() {
-  return <h2>Abouttttt</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
 }
 
 export default App;
