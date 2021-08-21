@@ -158,14 +158,16 @@ function App(props) {
             )}
           />
           <br />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={_.isEmpty(errors) ? false : true}
-          >
-            Submit
-          </Button>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={_.isEmpty(errors) ? false : true}
+            >
+              Submit
+            </Button>
+          </div>
         </form>
       );
     } else {

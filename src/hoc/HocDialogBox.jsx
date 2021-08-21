@@ -14,13 +14,12 @@ const styles = (theme) => ({
     margin: 0,
     padding: theme.spacing(2),
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.text.main,
   },
   closeButton: {
     position: "absolute",
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: "tomato",
+    color: theme.palette.error.main,
   },
 });
 const DialogTitle = withStyles(styles)((props) => {
@@ -61,13 +60,14 @@ const CustomizedDialogs =
     class TheHOC extends React.Component {
       state = { open: false };
 
-      handleClickOpen = () => {
+      handleOpen = () => {
         this.setState({ open: true });
       };
 
       handleClose = () => {
         this.setState({ open: false });
       };
+
       render() {
         console.log(title);
         // And it renders the component it was given
@@ -76,20 +76,16 @@ const CustomizedDialogs =
             <Button
               variant="outlined"
               color="primary"
-              onClick={this.handleClickOpen}
+              onClick={this.handleOpen}
             >
               Open alert dialog
             </Button>
             <div style={{ minWidth: "350px", minHeight: "500px" }}>
-              <Dialog
-                open={this.state.open}
-                onClose={this.handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
+              <Dialog open={this.state.open}>
                 <DialogTitle
                   id="customized-dialog-title"
                   onClose={this.handleClose}
+                  style={{ color: "white" }}
                 >
                   {title}
                 </DialogTitle>
