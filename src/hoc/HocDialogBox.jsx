@@ -1,26 +1,25 @@
-import React from "react";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import MuiDialogContent from "@material-ui/core/DialogContent";
-import MuiDialogActions from "@material-ui/core/DialogActions";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
-import Typography from "@material-ui/core/Typography";
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
 
 const styles = (theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.text.main,
   },
   closeButton: {
-    position: "absolute",
+    position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: "tomato",
+    color: theme.palette.error.main,
   },
 });
 const DialogTitle = withStyles(styles)((props) => {
@@ -29,11 +28,7 @@ const DialogTitle = withStyles(styles)((props) => {
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
       <Typography variant="h6">{children}</Typography>
       {onClose ? (
-        <IconButton
-          aria-label="close"
-          className={classes.closeButton}
-          onClick={onClose}
-        >
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -61,48 +56,32 @@ const CustomizedDialogs =
     class TheHOC extends React.Component {
       state = { open: false };
 
-      handleClickOpen = () => {
+      handleOpen = () => {
         this.setState({ open: true });
       };
 
       handleClose = () => {
         this.setState({ open: false });
       };
+
       render() {
         console.log(title);
         // And it renders the component it was given
         return (
           <div>
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={this.handleClickOpen}
-            >
+            <Button variant="outlined" color="primary" onClick={this.handleOpen}>
               Open alert dialog
             </Button>
-            <div style={{ minWidth: "350px", minHeight: "500px" }}>
-              <Dialog
-                open={this.state.open}
-                onClose={this.handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle
-                  id="customized-dialog-title"
-                  onClose={this.handleClose}
-                >
+            <div style={{ minWidth: '350px', minHeight: '500px' }}>
+              <Dialog open={this.state.open} fullWidth maxWidth="xs">
+                <DialogTitle id="customized-dialog-title" onClose={this.handleClose} style={{ color: 'white' }}>
                   {title}
                 </DialogTitle>
                 <DialogContent>
                   <WrappedComponent {...this.props} />
                 </DialogContent>
                 <DialogActions>
-                  <Button
-                    onClick={this.handleClose}
-                    color="secondary"
-                    variant="contained"
-                    size="small"
-                  >
+                  <Button onClick={this.handleClose} color="secondary" variant="contained" size="small">
                     close
                   </Button>
                 </DialogActions>

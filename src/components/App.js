@@ -1,18 +1,19 @@
 //import FetchAPI from "./fetchAPI";
-import "./App.css";
+import './App.css';
 // import ComponentA from "./componentA";
 // import ComponentC from "./componentC";
 // import ComponentB from "./componentB";
 
-import React, { useReducer } from "react";
-import Title from "../new-component/Title";
-import Parent from "../new-component/Parent";
-import Counter from "../useHook/Counter";
-import Todo from "../app/Todo";
-import Home from "./Home";
-import Testing from "../routing/buttons";
-import { Switch, Route, Link } from "react-router-dom";
-import Test from "../react-hook-form";
+// import React, { useReducer } from "react";
+// import Title from "../new-component/Title";
+// import Parent from "../new-component/Parent";
+// import Counter from "../useHook/Counter";
+// import Todo from "../app/Todo";
+// import Home from "./Home";
+// import Testing from "../routing/buttons";
+// import { Switch, Route, Link } from "react-router-dom";
+// import Test from "../react-hook-form";
+import ChatExample from './Chart';
 
 // export const nameContext = React.createContext();
 // export const channelContext = React.createContext();
@@ -36,13 +37,13 @@ import Test from "../react-hook-form";
 function App() {
   // const [state, dispatch] = useReducer(reducer, initialState);
   // console.log(state);
-  const varr = "hi";
 
   return (
     <div className="App">
-      {/* <Home /> */}
+      <ChatExample />
       {/* <Todo /> */}
-      <Test id={varr} />
+      {/* <Test id="abc" /> */}
+      {/* <Mtable /> */}
       {/* <Testing /> */}
       {/* <Switch>
         <Route exact path="/"></Route>
