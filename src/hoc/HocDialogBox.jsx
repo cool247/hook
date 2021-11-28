@@ -1,25 +1,29 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
+import {
+  MuiDialogActions,
+  Button,
+  Dialog,
+  Divider,
+  MuiDialogTitle,
+  MuiDialogContent,
+  Typography,
+} from '@material-ui/core';
+
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
 
 const styles = (theme) => ({
   root: {
     margin: 0,
-    padding: theme.spacing(2),
+    padding: theme.spacing(0),
     backgroundColor: theme.palette.primary.main,
   },
   closeButton: {
     position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.error.main,
+    right: theme.spacing(0),
+    top: theme.spacing(0),
+    // color: theme.palette.error.main,
   },
 });
 const DialogTitle = withStyles(styles)((props) => {
@@ -38,7 +42,7 @@ const DialogTitle = withStyles(styles)((props) => {
 
 const DialogContent = withStyles((theme) => ({
   root: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
   },
 }))(MuiDialogContent);
 
@@ -53,7 +57,7 @@ const CustomizedDialogs =
   ({ title }) =>
   (WrappedComponent) => {
     // It creates a new wrapper component...
-    class TheHOC extends React.Component {
+    return class TheHOC extends React.Component {
       state = { open: false };
 
       handleOpen = () => {
@@ -65,33 +69,32 @@ const CustomizedDialogs =
       };
 
       render() {
-        console.log(title);
-        // And it renders the component it was given
         return (
-          <div>
+          <>
             <Button variant="outlined" color="primary" onClick={this.handleOpen}>
               Open alert dialog
             </Button>
-            <div style={{ minWidth: '350px', minHeight: '500px' }}>
-              <Dialog open={this.state.open} fullWidth maxWidth="xs">
-                <DialogTitle id="customized-dialog-title" onClose={this.handleClose} style={{ color: 'white' }}>
-                  {title}
-                </DialogTitle>
-                <DialogContent>
-                  <WrappedComponent {...this.props} />
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={this.handleClose} color="secondary" variant="contained" size="small">
-                    close
-                  </Button>
-                </DialogActions>
-              </Dialog>
-            </div>
-          </div>
+            <Dialog open={this.state.open} maxWidth="xs" fullWidth>
+              <DialogTitle
+                style={{ padding: '0', margin: '0', color: 'white', paddingLeft: '16px' }}
+                onClose={this.handleClose}
+              >
+                {title}
+              </DialogTitle>
+              <DialogContent dividers style={{ padding: '16px' }}>
+                <WrappedComponent {...this.props} />
+              </DialogContent>
+              <Divider />
+              <DialogActions>
+                <Button onClick={this.handleClose} color="secondary" variant="contained" size="small">
+                  close
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </>
         );
       }
-    }
-    return TheHOC;
+    };
   };
 
 export default CustomizedDialogs;

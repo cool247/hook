@@ -3,7 +3,6 @@ import './App.css';
 // import ComponentA from "./componentA";
 // import ComponentC from "./componentC";
 // import ComponentB from "./componentB";
-
 // import React, { useReducer } from "react";
 // import Title from "../new-component/Title";
 // import Parent from "../new-component/Parent";
@@ -12,13 +11,11 @@ import './App.css';
 // import Home from "./Home";
 // import Testing from "../routing/buttons";
 // import { Switch, Route, Link } from "react-router-dom";
-// import Test from "../react-hook-form";
-import ChatExample from './Chart';
-
+import Test from '../react-hook-form';
+// import ChatExample from './Chart';
 // export const nameContext = React.createContext();
 // export const channelContext = React.createContext();
 // export const CountContext = React.createContext();
-
 // const initialState = { count: 0 };
 // const reducer = (state, action) => {
 //   switch (action.type) {
@@ -40,7 +37,8 @@ function App() {
 
   return (
     <div className="App">
-      <ChatExample />
+      {/* <ChatExample /> */}
+      <Test />
       {/* <Todo /> */}
       {/* <Test id="abc" /> */}
       {/* <Mtable /> */}
