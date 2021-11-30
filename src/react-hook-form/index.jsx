@@ -178,15 +178,25 @@
 // }
 // export default HocDialog({ title })(App);
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
-import { TextField, Grid } from '@material-ui/core';
+import { TextField, Grid, Button, Container } from '@material-ui/core';
+import { AddCircleOutlineTwoTone, CheckTwoTone, Delete } from '@material-ui/icons';
+
+const useStyles = makeStyles((theme) => ({
+  primaryBorder: {
+    border: `1px solid ${theme.palette.primary.main}`,
+    padding: '20px',
+    borderRadius: '10px',
+  },
+}));
 
 export default function App() {
+  const classes = useStyles();
   const {
     register,
     control,
     handleSubmit,
-
     formState: { errors },
   } = useForm({
     mode: 'onChange',
@@ -203,84 +213,98 @@ export default function App() {
   // }, [errors]);
 
   return (
-    <form onSubmit={handleSubmit((data) => console.log(data))}>
-      <ul>
-        {fields.map((item, index) => (
-          <Grid container spacing={2} key={item.id}>
-            <Controller
-              render={(params) => (
-                <Grid item xs={5}>
-                  <TextField
-                    {...params}
-                    multiline
-                    maxRows={2}
-                    label="First Name"
-                    placeholder="Enter Name"
-                    variant="outlined"
-                    key={item.id}
-                    size="small"
-                    error={!!errors?.labels?.[index]?.firstName}
-                    helperText={errors?.labels?.[index]?.firstName?.message}
-                  />
-                </Grid>
-              )}
-              name={`labels.${index}.firstName`}
-              control={control}
-              rules={{
-                required: 'First name required',
-                minLength: {
-                  value: 3,
-                  message: 'should be greater than 3',
-                },
-                maxLength: {
-                  value: 30,
-                  message: 'Exceeded max characters allowed',
-                },
-              }}
-            />
-            <Controller
-              render={(params) => (
-                <Grid item xs={5}>
-                  <TextField
-                    {...params}
-                    multiline
-                    maxRows={2}
-                    label="Last Name"
-                    placeholder="Enter Name"
-                    variant="outlined"
-                    key={item.id}
-                    size="small"
-                    error={!!errors?.labels?.[index]?.lastName}
-                    helperText={errors?.labels?.[index]?.lastName?.message}
-                  />
-                </Grid>
-              )}
-              name={`labels.${index}.lastName`}
-              control={control}
-              rules={{
-                required: 'last name required',
-                minLength: {
-                  value: 3,
-                  message: 'should be greater than 3',
-                },
-                maxLength: {
-                  value: 30,
-                  message: 'Exceeded max characters allowed',
-                },
-              }}
-            />
-            <Grid item>
-              <button type="button" onClick={() => remove(index)}>
-                Delete
-              </button>
+    <Container maxWidth="md">
+      <form onSubmit={handleSubmit((data) => console.log(data.labels))}>
+        <ul className={classes.primaryBorder}>
+          {fields.map((item, index) => (
+            <Grid container spacing={4} key={item.id} justifyContent="center">
+              <Controller
+                render={(params) => (
+                  <Grid item xs={5}>
+                    <TextField
+                      {...params}
+                      multiline
+                      fullWidth
+                      maxRows={2}
+                      label="First Name"
+                      placeholder="Enter Name"
+                      variant="outlined"
+                      key={item.id}
+                      size="small"
+                      error={!!errors?.labels?.[index]?.firstName}
+                      helperText={errors?.labels?.[index]?.firstName?.message}
+                    />
+                  </Grid>
+                )}
+                name={`labels.${index}.firstName`}
+                control={control}
+                defaultValue={''}
+                rules={{
+                  required: 'First name required',
+                  minLength: {
+                    value: 3,
+                    message: 'should be greater than 3',
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: 'Exceeded max characters allowed',
+                  },
+                }}
+              />
+              <Controller
+                render={(params) => (
+                  <Grid item xs={5}>
+                    <TextField
+                      {...params}
+                      fullWidth
+                      multiline
+                      maxRows={2}
+                      label="Last Name"
+                      placeholder="Enter Name"
+                      variant="outlined"
+                      key={item.id}
+                      size="small"
+                      error={!!errors?.labels?.[index]?.lastName}
+                      helperText={errors?.labels?.[index]?.lastName?.message}
+                    />
+                  </Grid>
+                )}
+                name={`labels.${index}.lastName`}
+                defaultValue={''}
+                control={control}
+                rules={{
+                  required: 'last name required',
+                  minLength: {
+                    value: 3,
+                    message: 'should be greater than 3',
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: 'Exceeded max characters allowed',
+                  },
+                }}
+              />
+              <Grid item xs={2}>
+                <Button variant="contained" color="secondary" startIcon={<Delete />} onClick={() => remove(index)}>
+                  Delete
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
-        ))}
-      </ul>
-      <button type="button" onClick={() => append({ firstName: '', lastName: '' })}>
-        append
-      </button>
-      <input type="submit" />
-    </form>
+          ))}
+        </ul>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginRight: '10px' }}
+          startIcon={<AddCircleOutlineTwoTone />}
+          onClick={() => append({ firstName: '', lastName: '' })}
+        >
+          Add Row
+        </Button>
+        <Button variant="contained" color="primary" type="submit" startIcon={<CheckTwoTone />}>
+          Submit
+        </Button>
+      </form>
+    </Container>
   );
 }
