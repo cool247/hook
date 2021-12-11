@@ -1,4 +1,5 @@
 //import FetchAPI from "./fetchAPI";
+import React from 'react';
 import './App.css';
 // import ComponentA from "./componentA";
 // import ComponentC from "./componentC";
@@ -12,6 +13,7 @@ import './App.css';
 // import Testing from "../routing/buttons";
 // import { Switch, Route, Link } from "react-router-dom";
 import Test from '../react-hook-form';
+// import Menu from './Menu';
 // import ChatExample from './Chart';
 // export const nameContext = React.createContext();
 // export const channelContext = React.createContext();
@@ -38,6 +40,7 @@ function App() {
   return (
     <div className="App">
       {/* <ChatExample /> */}
+      {/* <Test /> */}
       <Test />
       {/* <Todo /> */}
       {/* <Test id="abc" /> */}
