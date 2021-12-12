@@ -12,7 +12,7 @@ import './App.css';
 // import Home from "./Home";
 // import Testing from "../routing/buttons";
 // import { Switch, Route, Link } from "react-router-dom";
-import Test from '../react-hook-form';
+// import Test from '../react-hook-form';
 // import Menu from './Menu';
 // import ChatExample from './Chart';
 // export const nameContext = React.createContext();
@@ -32,6 +32,7 @@ import Test from '../react-hook-form';
 //       return state;
 //   }
 // };
+import Count from '../CountUp';
 
 function App() {
   // const [state, dispatch] = useReducer(reducer, initialState);
@@ -41,7 +42,7 @@ function App() {
     <div className="App">
       {/* <ChatExample /> */}
       {/* <Test /> */}
-      <Test />
+      <Count />
       {/* <Todo /> */}
       {/* <Test id="abc" /> */}
       {/* <Mtable /> */}

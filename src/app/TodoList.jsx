@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const TodoList = ({ list, deleteTodo }) => {
   const deleteTodoHandler = (id) => {
@@ -7,18 +8,18 @@ const TodoList = ({ list, deleteTodo }) => {
 
   return (
     <div>
-      <ul style={{ listStyleType: "none" }}>
+      <ul style={{ listStyleType: 'none' }}>
         {list.map((el) => (
           <li key={el.id}>
             {el.text}
             <button
               onClick={() => deleteTodoHandler(el.id)}
               style={{
-                color: "tomato",
-                cursor: "pointer",
-                border: "none",
-                outline: "none",
-                backgroundColor: "black",
+                color: 'tomato',
+                cursor: 'pointer',
+                border: 'none',
+                outline: 'none',
+                backgroundColor: 'black',
               }}
             >
               x
@@ -31,3 +32,8 @@ const TodoList = ({ list, deleteTodo }) => {
 };
 
 export default TodoList;
+
+TodoList.prototype = {
+  list: PropTypes.array.isRequired,
+  deleteTodo: PropTypes.number.isRequired,
+};

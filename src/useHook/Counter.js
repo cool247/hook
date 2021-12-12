@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo } from 'react';
 
 const Counter = () => {
   const [countOne, setCountOne] = useState(0);
@@ -21,7 +21,7 @@ const Counter = () => {
   return (
     <div>
       <button onClick={incrementOne}>click {countOne}</button>
-      {isEven ? "even" : "odd"}
+      {isEven ? 'even' : 'odd'}
       <div>
         <button onClick={incrementTwo}>click On Two {countTwo}</button>
       </div>
