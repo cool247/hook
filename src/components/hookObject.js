@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const HookObject = () => {
-  const [name, setName] = useState({ firstName: "", lastName: "" });
+  const [name, setName] = useState({ firstName: '', lastName: '' });
 
   const onInputChange = (e, whichName) => {
-    if (whichName === "first") {
+    if (whichName === 'first') {
       setName({ ...name, firstName: e.target.value });
     } else {
       setName({ ...name, lastName: e.target.value });
@@ -13,25 +13,25 @@ const HookObject = () => {
 
   return (
     <div>
-      <labek htmlfor="firstname">FirstName</labek>
+      <label htmlfor="firstName">FirstName</label>
       <input
         type="text"
         onChange={(e) => {
-          onInputChange(e, "first");
+          onInputChange(e, 'first');
         }}
         value={name.firstName}
-        name="firstname"
-        id="firstname"
+        name="firstName"
+        id="firstName"
       ></input>
-      <labek htmlfor="lastname">FirstName</labek>
+      <label htmlfor="lastName">FirstName</label>
       <input
         type="text"
         onChange={(e) => {
-          onInputChange(e, "last");
+          onInputChange(e, 'last');
         }}
         value={name.lastName}
-        name="lastname"
-        id="lastname"
+        name="lastName"
+        id="lastName"
       ></input>
       {JSON.stringify(name)}
     </div>

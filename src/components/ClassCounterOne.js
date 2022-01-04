@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class ClassCounterOne extends Component {
   state = { count: 0 };
@@ -13,12 +13,10 @@ class ClassCounterOne extends Component {
     this.setState({ count: this.state.count + 1 });
   };
   render() {
-    console.log("hi");
+    console.log('hi');
     return (
       <div>
-        <button onClick={this.incrementHandler}>
-          Click {this.state.count} times
-        </button>
+        <button onClick={this.incrementHandler}>Click {this.state.count} times</button>
       </div>
     );
   }

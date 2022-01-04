@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 let count = 0;
 const FetchAPI = () => {
@@ -23,11 +23,7 @@ const FetchAPI = () => {
   return (
     <div>
       <form>
-        <input
-          style={{ color: "tomato" }}
-          value={IDFromInput}
-          onChange={(e) => setIDFromInput(e.target.value)}
-        ></input>
+        <input style={{ color: 'tomato' }} value={IDFromInput} onChange={(e) => setIDFromInput(e.target.value)}></input>
         <button
           type="submit"
           onClick={(e) => {

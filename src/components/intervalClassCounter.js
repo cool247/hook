@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 export class IntervalClassCounter extends Component {
   constructor(params) {
@@ -19,7 +19,7 @@ export class IntervalClassCounter extends Component {
     });
   };
   render() {
-    return <div style={{ fontSize: "2em" }}>{this.state.count}</div>;
+    return <div style={{ fontSize: '2em' }}>{this.state.count}</div>;
   }
 }
 

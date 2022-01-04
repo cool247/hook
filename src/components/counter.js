@@ -1,5 +1,5 @@
-import React from "react";
-import CounterHigerOrder from "./counterHigerOrder";
+import React from 'react';
+import CounterHigherOrder from './counterHigherOrder';
 
 const Counter = (props) => {
   return (
@@ -10,4 +10,4 @@ const Counter = (props) => {
   );
 };
 
-export default CounterHigerOrder(Counter);
+export default CounterHigherOrder(Counter);

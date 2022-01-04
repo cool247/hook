@@ -1,22 +1,18 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { TextField, Button } from "@material-ui/core";
-import { useForm, Controller } from "react-hook-form";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { TextField, Button } from '@material-ui/core';
+import { useForm, Controller } from 'react-hook-form';
 
-import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from "@date-io/date-fns";
-import "date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
+import 'date-fns';
+import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: "25ch",
+      width: '25ch',
     },
   },
 }));
@@ -36,20 +32,16 @@ export default function BasicTextFields() {
   const onError = (errors, e) => console.log(errors, e);
 
   const helperText = () => {
-    if (errors.firstName?.type === "required") return "First name is required";
-    else if (errors.firstName?.type === "pattern") return "only alphabates";
-    return "";
+    if (errors.firstName?.type === 'required') return 'First name is required';
+    else if (errors.firstName?.type === 'pattern') return 'only alphabates';
+    return '';
   };
 
   console.log(errors);
 
   return (
     <div>
-      <form
-        className={classes.root}
-        autoComplete="off"
-        onSubmit={handleSubmit(onFormSubmit, onError)}
-      >
+      <form className={classes.root} autoComplete="off" onSubmit={handleSubmit(onFormSubmit, onError)}>
         <TextField
           id="standard-multiline-flexible"
           helperText={helperText()}
@@ -81,7 +73,7 @@ export default function BasicTextFields() {
               control={control}
               defaultValue={null}
               name="date1"
-              rules={{ required: "plz pick some date" }}
+              rules={{ required: 'plz pick some date' }}
               render={(props) => {
                 return (
                   <KeyboardDatePicker
@@ -94,7 +86,7 @@ export default function BasicTextFields() {
                     value={props.value}
                     onChange={props.onChange}
                     KeyboardButtonProps={{
-                      "aria-label": "change date",
+                      'aria-label': 'change date',
                     }}
                     error={errors.date1}
                     helperText={errors.date1?.message}
