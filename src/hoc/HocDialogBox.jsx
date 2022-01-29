@@ -1,14 +1,10 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import {
-  MuiDialogActions,
-  Button,
-  Dialog,
-  Divider,
-  MuiDialogTitle,
-  MuiDialogContent,
-  Typography,
-} from '@material-ui/core';
+import { Button, Dialog, Divider, Typography } from '@material-ui/core';
+
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
 
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -30,9 +26,9 @@ const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant="h6">{children}</Typography>
+      <Typography variant='h6'>{children}</Typography>
       {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+        <IconButton size='small' aria-label='close' className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -71,14 +67,11 @@ const CustomizedDialogs =
       render() {
         return (
           <>
-            <Button variant="outlined" color="primary" onClick={this.handleOpen}>
+            <Button variant='outlined' color='primary' onClick={this.handleOpen}>
               Open alert dialog
             </Button>
-            <Dialog open={this.state.open} maxWidth="xs" fullWidth>
-              <DialogTitle
-                style={{ padding: '0', margin: '0', color: 'white', paddingLeft: '16px' }}
-                onClose={this.handleClose}
-              >
+            <Dialog open={this.state.open} maxWidth='xs' fullWidth>
+              <DialogTitle style={{ paddingLeft: '12px' }} onClose={this.handleClose}>
                 {title}
               </DialogTitle>
               <DialogContent dividers style={{ padding: '16px' }}>
@@ -86,7 +79,7 @@ const CustomizedDialogs =
               </DialogContent>
               <Divider />
               <DialogActions>
-                <Button onClick={this.handleClose} color="secondary" variant="contained" size="small">
+                <Button onClick={this.handleClose} color='secondary' variant='contained' size='small'>
                   close
                 </Button>
               </DialogActions>

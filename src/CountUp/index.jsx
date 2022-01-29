@@ -59,21 +59,16 @@ const MaterialCheckBox = () => {
       },
     },
     checked: {},
-  })((props) => <Checkbox color="default" {...props} />);
+  })((props) => <Checkbox color='default' {...props} />);
 
   const handleChange = (e) => {
     const { name, checked } = e.target;
     setState({ ...state, [name]: checked });
   };
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      setState((ps) => ({ ...ps, OFC: true }));
-    }, 3000);
-  }, []);
+  React.useEffect(() => setTimeout(() => setState((ps) => ({ ...ps, OFC: true })), 3000), []);
 
   console.log(state, 'State');
-
   // const renderCheckBoxList = () => {};
 
   return (

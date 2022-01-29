@@ -14,7 +14,8 @@ import './App.css';
 // import { Switch, Route, Link } from "react-router-dom";
 // import Test from '../react-hook-form';
 // import Menu from './Menu';
-// import ChatExample from './Chart';
+// import Chart from './Chart';
+import DatePicker from '../DatePicker';
 // export const nameContext = React.createContext();
 // export const channelContext = React.createContext();
 // export const CountContext = React.createContext();
@@ -32,19 +33,21 @@ import './App.css';
 //       return state;
 //   }
 // };
-import Count from '../CountUp';
+// import Count from '../CountUp';
 
 function App() {
   // const [state, dispatch] = useReducer(reducer, initialState);
   // console.log(state);
 
   return (
-    <div className="App">
+    <div className='App'>
       {/* <ChatExample /> */}
       {/* <Test /> */}
-      <Count />
+      {/* <Count /> */}
       {/* <Todo /> */}
-      {/* <Test id="abc" /> */}
+      {/* <Test id='abc' /> */}
+      {/* <Chart /> */}
+      <DatePicker />
       {/* <Mtable /> */}
       {/* <Testing /> */}
       {/* <Switch>
