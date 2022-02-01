@@ -14,27 +14,22 @@ export default function MaterialUIPickers() {
   };
 
   function disableWeekends(date) {
-    const past3monthDate = moment(new Date()).subtract(3, 'month');
-    return moment(past3monthDate).isSameOrAfter(moment(date));
+    const past90DaysDate = moment(new Date()).subtract(90, 'days');
+    return moment(past90DaysDate).isSameOrAfter(moment(date));
   }
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justifyContent='space-around'>
         <KeyboardDatePicker
-          disableFuture
-          disableToolbar
-          shouldDisableDate={disableWeekends}
-          variant='inline'
-          format='MM/dd/yyyy'
-          margin='normal'
-          id='date-picker-inline'
           label='Date picker inline'
+          disableFuture
+          shouldDisableDate={disableWeekends}
+          format='dd-MM-yyyy'
+          mask='__-__-____'
+          margin='normal'
           value={selectedDate}
           onChange={handleDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
         />
       </Grid>
     </MuiPickersUtilsProvider>

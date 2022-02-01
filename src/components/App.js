@@ -12,10 +12,10 @@ import './App.css';
 // import Home from "./Home";
 // import Testing from "../routing/buttons";
 // import { Switch, Route, Link } from "react-router-dom";
-// import Test from '../react-hook-form';
+import Test from '../react-hook-form';
 // import Menu from './Menu';
 // import Chart from './Chart';
-import DatePicker from '../DatePicker';
+// import DatePicker from '../DatePicker';
 // export const nameContext = React.createContext();
 // export const channelContext = React.createContext();
 // export const CountContext = React.createContext();
@@ -45,9 +45,9 @@ function App() {
       {/* <Test /> */}
       {/* <Count /> */}
       {/* <Todo /> */}
-      {/* <Test id='abc' /> */}
+      <Test id='abc' />
       {/* <Chart /> */}
-      <DatePicker />
+      {/* <DatePicker /> */}
       {/* <Mtable /> */}
       {/* <Testing /> */}
       {/* <Switch>
