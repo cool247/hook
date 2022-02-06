@@ -1,21 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import HocDialog from '../hoc/HocDialogBox';
 //import ReactDatePicker from "react-datepicker";
-import { TextField, Button, LinearProgress, Grid, Typography } from '@material-ui/core';
+import { TextField, Button, LinearProgress, Grid } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 // import Autocomplete from '@mui/material/Autocomplete';
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import _ from 'lodash';
+//import { useMemo } from 'react';
 
 const title = `Fill the Form`;
+const initialState = {
+  firstName: '',
+  username: '',
+  age: '',
+  email: '',
+};
 
 function App() {
-  const [networkError, setNetworkError] = React.useState(false);
-  const [state, setState] = React.useState(null);
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm({ mode: 'onChange' });
 
+  const [state] = React.useState(initialState);
   const [inputValue, setInputValue] = React.useState('');
-  const [inputError, setInputError] = React.useState('Required');
+  const [inputError, setInputError] = React.useState('');
+  const [loading, setLoading] = React.useState(true);
 
   const top100Films = [
     { title: 'The Shawshank Redemption', year: 1994 },
@@ -125,199 +138,198 @@ function App() {
     axios
       .get(`https://jsonplaceholder.typicode.com/users/${randomNumber}`)
       .then((response) => {
-        setState(response.data);
+        setLoading(false);
+        const responseData = {
+          firstName: response.data.name,
+          username: response.data.username,
+          age: 56,
+          email: response.data.email,
+        };
+        reset(responseData);
       })
       .catch((error) => {
         console.log(error);
-        setNetworkError(true);
+        setLoading(false);
       });
-  }, []);
-
-  const {
-    handleSubmit,
-    control,
-    register,
-    formState: { errors },
-  } = useForm({ mode: 'onChange' });
+  }, [reset]);
 
   const onFormSubmit = (data) => {
-    console.log(data);
+    console.log({ ...data, inputValue });
   };
 
-  console.log('cccc', inputValue, inputError);
+  // const convertMilliseconds = useCallback((milliseconds) => {
+  //   let days, hours, minutes, seconds, total_hours, total_minutes, total_seconds;
+
+  //   total_seconds = +Math.floor(milliseconds / 1000);
+  //   total_minutes = +Math.floor(total_seconds / 60);
+  //   total_hours = +Math.floor(total_minutes / 60);
+  //   days = +Math.floor(total_hours / 24);
+
+  //   seconds = total_seconds % 60;
+  //   minutes = total_minutes % 60;
+  //   hours = total_hours % 24;
+  //   return { days, hours, minutes, seconds };
+  // }, []);
+
+  const onInputChange = (value) => {
+    setInputValue(value);
+    if (value.trim().length === 0) {
+      setInputError('Required');
+    } else if (value.length < 3) {
+      setInputError('min 3 char');
+    } else {
+      setInputError('');
+    }
+  };
 
   const renderUI = () => {
-    if (state) {
-      //when you get data from API then set the initialState of the Form
-      //initialize data with API
-      const initialState = {
-        firstName: state.name,
-        username: state.username,
-        age: 56,
-        email: state.email,
-      };
-
-      const onInputChange = (value) => {
-        setInputValue(value);
-        if (value.trim().length === 0) {
-          setInputError('Required');
-        } else if (value.length <= 3) {
-          setInputError('min 3 char');
-        } else {
-          setInputError('');
-        }
-      };
-
-      return (
-        <form onSubmit={handleSubmit(onFormSubmit)}>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Controller
-                name='firstName'
-                control={control}
-                defaultValue={initialState.firstName}
-                rules={{
-                  required: 'First name required',
-                  minLength: {
-                    value: 3,
-                    message: 'name should be greater than 3',
-                  },
-                  maxLength: {
-                    value: 30,
-                    message: 'exceeded max characters allowed',
-                  },
-                }}
-                render={(props) => (
-                  <TextField
-                    multiline
-                    maxRows={2}
-                    label='First Name'
-                    variant='outlined'
-                    size='small'
-                    value={props.value}
-                    onChange={props.onChange}
-                    error={!!errors.firstName}
-                    helperText={errors.firstName?.message}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <Controller
-                name='username'
-                control={control}
-                defaultValue={initialState.username}
-                rules={{ required: 'last name required' }}
-                render={(props) => (
-                  <TextField
-                    label='User Name'
-                    multiline
-                    maxRows={2}
-                    variant='outlined'
-                    size='small'
-                    value={props.value}
-                    onChange={props.onChange}
-                    error={!!errors.username}
-                    helperText={errors.username?.message}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <Controller
-                name='Age'
-                control={control}
-                defaultValue={initialState.age}
-                rules={{
-                  required: 'Age is required',
-                  min: { value: 17, message: 'need grater than 17' },
-                  max: { value: 80, message: 'need lesser than 80' },
-                }}
-                render={(props) => (
-                  <TextField
-                    label='Age'
-                    // required
-                    variant='outlined'
-                    size='small'
-                    value={props.value}
-                    onChange={props.onChange}
-                    error={!!errors.Age}
-                    helperText={errors.Age?.message}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <Controller
-                name='Email'
-                control={control}
-                defaultValue={initialState.email}
-                rules={{
-                  pattern: {
-                    value:
-                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                    message: 'Email is not Valid',
-                  },
-                }}
-                render={(props) => (
-                  <TextField
-                    label='Email'
-                    multiline
-                    maxRows={2}
-                    variant='outlined'
-                    size='small'
-                    value={props.value}
-                    onChange={props.onChange}
-                    error={!!errors.Email}
-                    helperText={errors.Email?.message}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <Autocomplete
-                freeSolo
-                size='small'
-                id='free-solo-2-demo'
-                disableClearable
-                options={top100Films.map((option) => option.title)}
-                inputValue={inputValue}
-                onInputChange={(event, newInputValue) => {
-                  onInputChange(newInputValue);
-                }}
-                renderInput={(props) => (
-                  <TextField
-                    {...props}
-                    label='Search input'
-                    margin='normal'
-                    variant='outlined'
-                    error={!!inputError}
-                    helperText={inputError}
-                  />
-                )}
-              />
-            </Grid>
-          </Grid>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-            <Button
-              type='submit'
-              size='small'
-              variant='contained'
-              color='primary'
-              disabled={!_.isEmpty(errors) || !!inputError}
-            >
-              Submit
-            </Button>
-          </div>
-        </form>
-      );
-    } else {
-      if (networkError) {
-        return <Typography color='error'>Network Error</Typography>;
-      } else {
-        return <LinearProgress />;
-      }
+    if (loading) {
+      return <LinearProgress />;
     }
+
+    return (
+      <form onSubmit={handleSubmit(onFormSubmit)}>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <Controller
+              name='firstName'
+              control={control}
+              defaultValue={state.firstName}
+              rules={{
+                required: 'First name required',
+                minLength: {
+                  value: 3,
+                  message: 'name should be greater than 3',
+                },
+                maxLength: {
+                  value: 30,
+                  message: 'exceeded max characters allowed',
+                },
+              }}
+              render={(props) => (
+                <TextField
+                  multiline
+                  maxRows={2}
+                  label='First Name'
+                  variant='outlined'
+                  size='small'
+                  value={props.value}
+                  onChange={props.onChange}
+                  error={!!errors.firstName}
+                  helperText={errors.firstName?.message}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Controller
+              name='username'
+              control={control}
+              defaultValue={state.username}
+              rules={{ required: 'last name required' }}
+              render={(props) => (
+                <TextField
+                  label='User Name'
+                  multiline
+                  maxRows={2}
+                  variant='outlined'
+                  size='small'
+                  value={props.value}
+                  onChange={props.onChange}
+                  error={!!errors.username}
+                  helperText={errors.username?.message}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <Controller
+              name='age'
+              control={control}
+              defaultValue={state.age}
+              rules={{
+                required: 'Age is required',
+                min: { value: 17, message: 'need grater than 17' },
+                max: { value: 80, message: 'need lesser than 80' },
+              }}
+              render={(props) => (
+                <TextField
+                  label='Age'
+                  // required
+                  variant='outlined'
+                  size='small'
+                  value={props.value}
+                  onChange={props.onChange}
+                  error={!!errors.age}
+                  helperText={errors.age?.message}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={9}>
+            <Controller
+              name='email'
+              control={control}
+              defaultValue={state.email}
+              rules={{
+                pattern: {
+                  value:
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: 'Email is not Valid',
+                },
+              }}
+              render={(props) => (
+                <TextField
+                  label='Email'
+                  fullWidth
+                  multiline
+                  maxRows={2}
+                  variant='outlined'
+                  size='small'
+                  value={props.value}
+                  onChange={props.onChange}
+                  error={!!errors.email}
+                  helperText={errors.email?.message}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Autocomplete
+              freeSolo
+              size='small'
+              disableClearable
+              options={top100Films.map((option) => option.title)}
+              inputValue={inputValue}
+              onInputChange={(event, newInputValue) => {
+                onInputChange(newInputValue);
+              }}
+              renderInput={(props) => (
+                <TextField
+                  {...props}
+                  label='Search input'
+                  size='small'
+                  variant='outlined'
+                  error={!!inputError}
+                  helperText={inputError}
+                />
+              )}
+            />
+          </Grid>
+        </Grid>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+          <Button
+            type='submit'
+            size='small'
+            variant='contained'
+            color='primary'
+            disabled={!_.isEmpty(errors) || !!inputError}
+          >
+            Submit
+          </Button>
+        </div>
+      </form>
+    );
   };
 
   return renderUI();
