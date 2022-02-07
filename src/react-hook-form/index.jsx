@@ -1,7 +1,20 @@
 import React, { useEffect } from 'react';
 import HocDialog from '../hoc/HocDialogBox';
-//import ReactDatePicker from "react-datepicker";
-import { TextField, Button, LinearProgress, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+import {
+  TextField,
+  Button,
+  LinearProgress,
+  Grid,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  ListItemIcon,
+  Checkbox,
+  ListItemText,
+} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 // import Autocomplete from '@mui/material/Autocomplete';
 import { useForm, Controller } from 'react-hook-form';
@@ -17,7 +30,61 @@ const initialState = {
   email: '',
 };
 
+const options = [
+  'Oliver Hansen',
+  'Van Henry',
+  'April Tucker',
+  'Ralph Hubbard',
+  'Omar Alexander',
+  'Carlos Abbott',
+  'Miriam Wagner',
+  'Bradley Wilkerson',
+  'Virginia Andrews',
+  'Kelly Snyder',
+];
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    width: 300,
+  },
+  indeterminateColor: {
+    color: '#f50057',
+  },
+  selectAllText: {
+    fontWeight: 500,
+  },
+  selectedAll: {
+    backgroundColor: 'rgba(0, 0, 0, 0.08)',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.08)',
+    },
+  },
+}));
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+  getContentAnchorEl: null,
+  anchorOrigin: {
+    vertical: 'bottom',
+    horizontal: 'center',
+  },
+  transformOrigin: {
+    vertical: 'top',
+    horizontal: 'center',
+  },
+  variant: 'menu',
+};
+
 function App() {
+  const classes = useStyles();
   const {
     handleSubmit,
     control,
@@ -151,10 +218,22 @@ function App() {
         console.log(error);
         setLoading(false);
       });
-  }, [reset]);
+  }, [reset, inputValue]);
 
   const onFormSubmit = (data) => {
     console.log({ ...data, inputValue });
+  };
+
+  const [selected, setSelected] = React.useState([]);
+  const isAllSelected = options.length > 0 && selected.length === options.length;
+
+  const handleChange = (event) => {
+    const value = event.target.value;
+    if (value[value.length - 1] === 'all') {
+      setSelected(selected.length === options.length ? [] : options);
+      return;
+    }
+    setSelected(value);
   };
 
   // const convertMilliseconds = useCallback((milliseconds) => {
@@ -315,6 +394,43 @@ function App() {
                 />
               )}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <InputLabel id='mutiple-select-label'>Multiple Select</InputLabel>
+              <Select
+                labelId='mutiple-select-label'
+                multiple
+                value={selected}
+                onChange={handleChange}
+                renderValue={(selected) => selected.join(', ')}
+                MenuProps={MenuProps}
+              >
+                <MenuItem
+                  value='all'
+                  classes={{
+                    root: isAllSelected ? classes.selectedAll : '',
+                  }}
+                >
+                  <ListItemIcon>
+                    <Checkbox
+                      classes={{ indeterminate: classes.indeterminateColor }}
+                      checked={isAllSelected}
+                      indeterminate={selected.length > 0 && selected.length < options.length}
+                    />
+                  </ListItemIcon>
+                  <ListItemText primary='Select All' classes={{ primary: classes.selectAllText }} />
+                </MenuItem>
+                {options.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    <ListItemIcon>
+                      <Checkbox checked={selected.indexOf(option) > -1} />
+                    </ListItemIcon>
+                    <ListItemText primary={option} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
         </Grid>
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
