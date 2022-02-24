@@ -591,6 +591,8 @@ export default function ReactHookForm() {
 
   // }, [errors]);
 
+  console.log(errors);
+
   return (
     <Container maxWidth='md'>
       <form onSubmit={handleSubmit((data) => console.log(data.labels))}>
@@ -615,7 +617,7 @@ export default function ReactHookForm() {
                     />
                   </Grid>
                 )}
-                name={`labels.${index}.firstName`}
+                name={`labels[${index}].firstName`}
                 control={control}
                 defaultValue={''}
                 rules={{
@@ -635,16 +637,25 @@ export default function ReactHookForm() {
                 render={({ onChange, ...props }) => (
                   <Grid item xs={5}>
                     <Autocomplete
+                      size='small'
                       onChange={(e, data) => onChange(data)}
                       {...props}
                       getOptionLabel={(option) => option.title || ''}
                       options={top100Films}
                       style={{ width: 300 }}
-                      renderInput={(params) => <TextField {...params} label='Controllable' variant='outlined' />}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label='Controllable'
+                          variant='outlined'
+                          error={!!errors?.labels?.[index]?.autoComplete}
+                          helperText={errors?.labels?.[index]?.autoComplete?.message}
+                        />
+                      )}
                     />
                   </Grid>
                 )}
-                name={`labels.${index}.autoComplete`}
+                name={`labels[${index}].autoComplete`}
                 defaultValue={''}
                 control={control}
                 rules={{
@@ -670,7 +681,7 @@ export default function ReactHookForm() {
                     />
                   </Grid>
                 )}
-                name={`labels.${index}.lastName`}
+                name={`labels[${index}].lastName`}
                 defaultValue={''}
                 control={control}
                 rules={{
