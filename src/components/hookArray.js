@@ -16,7 +16,7 @@ const HookArray = () => {
     <div>
       <button onClick={addItemsHandler}>Add List</button>
       <ul>
-        {items.map((item) => (
+        {items.map(item => (
           <li key={item.id}>{item.value}</li>
         ))}
       </ul>

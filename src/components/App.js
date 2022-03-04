@@ -12,7 +12,8 @@ import './App.css';
 // import Home from "./Home";
 // import Testing from "../routing/buttons";
 // import { Switch, Route, Link } from "react-router-dom";
-import Test from '../react-hook-form';
+// import Test from '../react-hook-form';
+import AutoCompleteVirtualize from '../AutoCompleteVirtualize';
 // import Menu from './Menu';
 // import Chart from './Chart';
 // import DatePicker from '../DatePicker';
@@ -45,7 +46,8 @@ function App() {
       {/* <Test /> */}
       {/* <Count /> */}
       {/* <Todo /> */}
-      <Test id='abc' />
+      {/* <Test id='abc' /> */}
+      <AutoCompleteVirtualize />
       {/* <Chart /> */}
       {/* <DatePicker /> */}
       {/* <Mtable /> */}

@@ -36,15 +36,15 @@
 // };
 
 // export default Count;
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
-import { FormControlLabel, FormGroup, Checkbox } from '@material-ui/core';
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import { green } from "@material-ui/core/colors";
+import { FormControlLabel, FormGroup, Checkbox } from "@material-ui/core";
 
 const initialCheckBox = [
-  { id: 1, link: 'OFC' },
-  { id: 2, link: 'radio' },
-  { id: 3, link: 'san' },
+  { id: 1, link: "OFC" },
+  { id: 2, link: "radio" },
+  { id: 3, link: "san" },
 ];
 
 const MaterialCheckBox = () => {
@@ -54,26 +54,26 @@ const MaterialCheckBox = () => {
   const GreenCheckbox = withStyles({
     root: {
       color: green[400],
-      '&$checked': {
+      "&$checked": {
         color: green[600],
       },
     },
     checked: {},
-  })((props) => <Checkbox color='default' {...props} />);
+  })(props => <Checkbox color="default" {...props} />);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, checked } = e.target;
     setState({ ...state, [name]: checked });
   };
 
-  React.useEffect(() => setTimeout(() => setState((ps) => ({ ...ps, OFC: true })), 3000), []);
+  React.useEffect(() => setTimeout(() => setState(ps => ({ ...ps, OFC: true })), 3000), []);
 
-  console.log(state, 'State');
+  console.log(state, "State");
   // const renderCheckBoxList = () => {};
 
   return (
     <FormGroup>
-      {initialCheckBox.map((el) => {
+      {initialCheckBox.map(el => {
         return (
           <FormControlLabel
             control={<GreenCheckbox checked={state[el.link]} onChange={handleChange} name={el.link} />}
