@@ -46,8 +46,6 @@ const ListboxComponent = React.forwardRef(function ListboxComponent(props, ref) 
   const itemCount = itemData.length;
   const itemSize = smUp ? 36 : 48;
 
-  console.log("itemCount", itemCount);
-
   const getChildSize = child => {
     if (React.isValidElement(child) && child.type === ListSubheader) {
       return 48;
@@ -127,7 +125,6 @@ export default function Virtualize() {
 
   return (
     <Autocomplete
-      id="virtualize-demo"
       size="small"
       style={{ width: 300 }}
       disableListWrap
@@ -135,7 +132,7 @@ export default function Virtualize() {
       ListboxComponent={ListboxComponent}
       renderGroup={renderGroup}
       options={OPTIONS}
-      renderInput={params => <TextField {...params} variant="outlined" label="18,000 options" />}
+      renderInput={params => <TextField {...params} variant="outlined" label="option" />}
       renderOption={option => <Typography noWrap>{option}</Typography>}
     />
   );

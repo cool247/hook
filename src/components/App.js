@@ -1,6 +1,6 @@
 //import FetchAPI from "./fetchAPI";
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 // import ComponentA from "./componentA";
 // import ComponentC from "./componentC";
 // import ComponentB from "./componentB";
@@ -8,12 +8,14 @@ import './App.css';
 // import Title from "../new-component/Title";
 // import Parent from "../new-component/Parent";
 // import Counter from "../useHook/Counter";
-// import Todo from "../app/Todo";
+import Todo from "../app";
+import { ErrorBoundary } from "react-error-boundary";
+import { Fallback } from "./Fallback";
 // import Home from "./Home";
 // import Testing from "../routing/buttons";
 // import { Switch, Route, Link } from "react-router-dom";
-// import Test from '../react-hook-form';
-import AutoCompleteVirtualize from '../AutoCompleteVirtualize';
+// import Test from "../react-hook-form";
+// import AutoCompleteVirtualize from '../AutoCompleteVirtualize';
 // import Menu from './Menu';
 // import Chart from './Chart';
 // import DatePicker from '../DatePicker';
@@ -40,26 +42,40 @@ function App() {
   // const [state, dispatch] = useReducer(reducer, initialState);
   // console.log(state);
 
+  const errorHandler = (error, errorInfo) => {
+    console.log(
+      "==================================================A-HMIS(START)========================================================"
+    );
+    console.log(error, errorInfo);
+    console.log(
+      "==================================================A-HMIS(END)========================================================"
+    );
+  };
+
   return (
-    <div className='App'>
-      {/* <ChatExample /> */}
-      {/* <Test /> */}
-      {/* <Count /> */}
-      {/* <Todo /> */}
-      {/* <Test id='abc' /> */}
-      <AutoCompleteVirtualize />
-      {/* <Chart /> */}
-      {/* <DatePicker /> */}
-      {/* <Mtable /> */}
-      {/* <Testing /> */}
-      {/* <Switch>
+    <ErrorBoundary FallbackComponent={Fallback} onError={errorHandler}>
+      <div className="App">
+        {/* <Input /> */}
+
+        {/* <ChatExample /> */}
+        {/* <Test /> */}
+        {/* <Count /> */}
+        <Todo />
+        {/* <Test id="abc" /> */}
+        {/* <AutoCompleteVirtualize /> */}
+        {/* <Chart /> */}
+        {/* <DatePicker /> */}
+        {/* <Mtable /> */}
+        {/* <Testing /> */}
+        {/* <Switch>
         <Route exact path="/"></Route>
         <Route path="/cm/users" component={Users}></Route>
         <Route path="/cm/about">
           <About />
         </Route>
       </Switch> */}
-    </div>
+      </div>
+    </ErrorBoundary>
   );
 }
 

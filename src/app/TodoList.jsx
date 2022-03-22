@@ -1,25 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const TodoList = ({ list, deleteTodo }) => {
-  const deleteTodoHandler = (id) => {
+  const deleteTodoHandler = id => {
     deleteTodo(id);
   };
 
   return (
     <div>
-      <ul style={{ listStyleType: 'none' }}>
-        {list.map((el) => (
-          <li key={el.id}>
+      <ul style={{ listStyleType: "none", textAlign: "center", maxWidth: 500 }}>
+        {list.map(el => (
+          <li key={el.id} style={{ textAlign: "right" }}>
             {el.text}
             <button
               onClick={() => deleteTodoHandler(el.id)}
               style={{
-                color: 'tomato',
-                cursor: 'pointer',
-                border: 'none',
-                outline: 'none',
-                backgroundColor: 'black',
+                color: "tomato",
+                cursor: "pointer",
+                border: "none",
+                outline: "none",
+                backgroundColor: "black",
               }}
             >
               x

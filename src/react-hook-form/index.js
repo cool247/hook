@@ -1,84 +1,163 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
-import { Box, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import ArrayFormField from "./ArrayFormField";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import { useForm, FormProvider, useFieldArray } from "react-hook-form";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
+  return <div {...other}>{value === index && <Typography>{children}</Typography>}</div>;
 }
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
 
 export default function SimpleTabs() {
   const methods = useForm();
 
-  const onSubmit = data => console.log(data, "DATA");
+  const {
+    control,
+    getValues,
+    reset,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onSubmit",
+  });
 
-  const [value, setValue] = React.useState(0);
+  const { fields, append, remove } = useFieldArray({
+    name: "generalFormFields",
+    control,
+  });
+
+  const onSubmit = data => {
+    console.log(data, "DATA");
+  };
+
+  const [valueTab, setValueTab] = React.useState(0);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setValueTab(newValue);
   };
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <AppBar position="static">
-          <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-            <Tab label="Item One" {...a11yProps(0)} />
-            <Tab label="Form" {...a11yProps(1)} />
+          <Tabs value={valueTab} onChange={handleChange}>
+            <Tab label="Item One" />
+            <Tab label="Form" />
           </Tabs>
         </AppBar>
-        <TabPanel value={value} index={0}>
+        <TabPanel value={valueTab} index={0}>
           Item One
         </TabPanel>
-        <TabPanel value={value} index={1}>
-          <ArrayFormField />
+        <TabPanel value={valueTab} index={1}>
+          <ArrayFormField
+            fields={fields}
+            append={append}
+            remove={remove}
+            errors={errors}
+            control={control}
+            getValues={getValues}
+            reset={reset}
+            setValue={setValue}
+          />
         </TabPanel>
-        <Button variant="contained" color="primary" type="submit">
+        <Button onClick={handleSubmit(onSubmit)} variant="contained" color="primary" type="submit">
           Submit
         </Button>
       </form>
     </FormProvider>
   );
 }
+
+// import { Button, DatePicker, Input, Col, Row, Form } from "antd";
+// import "antd/dist/antd.css";
+
+// import React from "react";
+// import { useForm, Controller } from "react-hook-form";
+
+// export default function App() {
+//   const {
+//     register,
+//     handleSubmit,
+//     control,
+//     formState: { errors },
+//   } = useForm();
+//   const onSubmit = data => {
+//     console.log(data);
+//   };
+
+//   // const [form] = Form.useForm
+
+//   console.log(errors);
+//   return (
+//     <form onSubmit={handleSubmit(onSubmit)} style={{ padding: "24px" }}>
+//       <Form>
+//         <Row gutter={16}>
+//           <Col span={10}>
+//             <Form.Item>
+//               <Controller
+//                 name="example1"
+//                 control={control}
+//                 rules={{
+//                   required: "Required",
+//                   minLength: {
+//                     value: 3,
+//                     message: "should be greater than 3",
+//                   },
+//                   maxLength: {
+//                     value: 30,
+//                     message: "Exceeded max characters allowed",
+//                   },
+//                 }}
+//                 render={({ onChange, value }) => (
+//                   <Input
+//                     onChange={onChange}
+//                     value={value}
+//                     status={errors?.example1 ? "error" : ""}
+//                     placeholder={errors?.example1 ? "Required" : "First Name"}
+//                   />
+//                 )}
+//               />
+//             </Form.Item>
+//           </Col>
+//           <Col span={10}>
+//             <Form.Item>
+//               <Controller
+//                 name="example2"
+//                 defaultValue=""
+//                 control={control}
+//                 rules={{
+//                   required: "Required",
+//                   minLength: {
+//                     value: 3,
+//                     message: "should be greater than 3",
+//                   },
+//                   maxLength: {
+//                     value: 30,
+//                     message: "Exceeded max characters allowed",
+//                   },
+//                 }}
+//                 render={({ onChange, value }) => (
+//                   <Input
+//                     onChange={onChange}
+//                     value={value}
+//                     status={errors?.example2 ? "error" : ""}
+//                     placeholder={errors?.example2 ? "Required" : "Last Name"}
+//                   />
+//                 )}
+//               />
+//             </Form.Item>
+//           </Col>
+//           <Col span={4}>
+//             <Button type="submit">Press me</Button>
+//           </Col>
+//         </Row>
+//       </Form>
+//     </form>
+//   );
+// }
