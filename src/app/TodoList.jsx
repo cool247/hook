@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import _ from "lodash";
 const TodoList = ({ list, deleteTodo }) => {
   const deleteTodoHandler = id => {
-    deleteTodo(id);
+    _.debounce(function () {
+      deleteTodo(id);
+    }, 500)();
   };
 
   return (
@@ -22,7 +24,7 @@ const TodoList = ({ list, deleteTodo }) => {
                 backgroundColor: "black",
               }}
             >
-              x
+              X
             </button>
           </li>
         ))}
