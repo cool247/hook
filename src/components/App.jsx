@@ -18,10 +18,12 @@ import { MuiButton } from "../ComponentLibrary/index";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Switch, Route, Link } from "react-router-dom";
+import Sound from "../Asserts/song.wav";
 
 const Home = React.lazy(() => import("../routing/Home"));
 const About = React.lazy(() => import("../routing/About"));
 const User = React.lazy(() => import("../routing/User"));
+// const Song = React.lazy(() => import("../../public/song.wav"));
 
 // import Home from "../routing/Home";
 // import About from "../routing/About";
@@ -40,17 +42,31 @@ const useStyles = makeStyles({
 });
 
 function App() {
+  const audioRef = React.useRef();
   const classes = useStyles();
   const [isDarkTheme, setDarkTheme] = React.useState(false);
+
+  const [songState, setSongState] = React.useState(false);
 
   const errorHandler = (error, errorInfo) => {
     console.log("==============A-(START)=================");
     console.log(error, errorInfo);
-    console.log("==============A-(END)====================");
+    console.log("==============A-(END)===================");
   };
 
   const handleModeButtonClick = () => {
     setDarkTheme(ps => !ps);
+  };
+
+  const handlePlaySong = () => {
+    setSongState(ps => !ps);
+    if (!songState) {
+      audioRef.current.play().catch(e => console.log(e));
+    } else {
+      audioRef.current.pause();
+      console.log("his");
+    }
+    console.log(audioRef.current.currentTime, "audioRef");
   };
 
   return (
@@ -81,6 +97,13 @@ function App() {
           >
             HI
           </button>
+          <audio ref={audioRef} src={Sound} controls />
+          <div>
+            Play Song{" "}
+            <button type="button" onClick={handlePlaySong}>
+              {!songState ? "play" : "pause"}
+            </button>
+          </div>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/user" component={User} />
