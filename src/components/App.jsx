@@ -1,15 +1,6 @@
-//import FetchAPI from "./fetchAPI";
 import React from "react";
 import "./App.css";
 import clsx from "clsx";
-// import ComponentA from "./componentA";
-// import ComponentC from "./componentC";
-// import ComponentB from "./componentB";
-// import React, { useReducer } from "react";
-// import Title from "../new-component/Title";
-// import Parent from "../new-component/Parent";
-// import Counter from "../useHook/Counter";
-// import Todo from "../app";
 import Input from "./atom";
 import { ErrorBoundary } from "react-error-boundary";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -23,11 +14,6 @@ import Sound from "../Asserts/song.wav";
 const Home = React.lazy(() => import("../routing/Home"));
 const About = React.lazy(() => import("../routing/About"));
 const User = React.lazy(() => import("../routing/User"));
-// const Song = React.lazy(() => import("../../public/song.wav"));
-
-// import Home from "../routing/Home";
-// import About from "../routing/About";
-// import User from "../routing/User";
 
 const useStyles = makeStyles({
   root: {
@@ -69,6 +55,8 @@ function App() {
     console.log(audioRef.current.currentTime, "audioRef");
   };
 
+  if (process.env.REACT_DEV_MODE !== "development") console.log = () => {};
+
   return (
     <ErrorBoundary FallbackComponent={<div>Something went wrong</div>} onError={errorHandler}>
       <ThemeProvider theme={isDarkTheme ? darkTheme : theme}>
@@ -99,7 +87,7 @@ function App() {
           </button>
           <audio ref={audioRef} src={Sound} controls />
           <div>
-            Play Song{" "}
+            Play Song
             <button type="button" onClick={handlePlaySong}>
               {!songState ? "play" : "pause"}
             </button>
