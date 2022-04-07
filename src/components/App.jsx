@@ -7,9 +7,13 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { theme, darkTheme } from "./theme";
 import { MuiButton } from "../ComponentLibrary/index";
 import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Typography } from "@material-ui/core";
 
 import { Switch, Route, Link } from "react-router-dom";
 import Sound from "../Asserts/song.wav";
+import Facebook from "../app/facebook.png";
+import Insta from "../app/insta.webp";
+import Twitter from "../app/twitter.png";
 
 const Home = React.lazy(() => import("../routing/Home"));
 const About = React.lazy(() => import("../routing/About"));
@@ -25,14 +29,35 @@ const useStyles = makeStyles({
   notActive: {
     backgroundColor: "green",
   },
+  typography: {
+    fontSize: 18,
+    [theme.breakpoints.down("md")]: {
+      fontSize: 14,
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 12,
+    },
+  },
+  image: {
+    [theme.breakpoints.up("md")]: {
+      height: 70,
+    },
+
+    [theme.breakpoints.down("md")]: {
+      height: 50,
+    },
+    [theme.breakpoints.down("sm")]: {
+      height: 30,
+    },
+  },
 });
 
 function App() {
-  const audioRef = React.useRef();
+  // const audioRef = React.useRef();
   const classes = useStyles();
   const [isDarkTheme, setDarkTheme] = React.useState(false);
 
-  const [songState, setSongState] = React.useState(false);
+  // const [songState, setSongState] = React.useState(false);
 
   const errorHandler = (error, errorInfo) => {
     console.log("==============A-(START)=================");
@@ -44,22 +69,53 @@ function App() {
     setDarkTheme(ps => !ps);
   };
 
-  const handlePlaySong = () => {
-    setSongState(ps => !ps);
-    if (!songState) {
-      audioRef.current.play().catch(e => console.log(e));
-    } else {
-      audioRef.current.pause();
-      console.log("his");
-    }
-    console.log(audioRef.current.currentTime, "audioRef");
-  };
+  // const handlePlaySong = () => {
+  //   setSongState(ps => !ps);
+  //   if (!songState) {
+  //     audioRef.current.play().catch(e => console.log(e));
+  //   } else {
+  //     audioRef.current.pause();
+  //     console.log("his");
+  //   }
+  //   console.log(audioRef.current.currentTime, "audioRef");
+  // };
 
   if (process.env.REACT_DEV_MODE !== "development") console.log = () => {};
 
   return (
     <ErrorBoundary FallbackComponent={<div>Something went wrong</div>} onError={errorHandler}>
       <ThemeProvider theme={isDarkTheme ? darkTheme : theme}>
+        <Grid
+          container
+          spacing={0}
+          alignItems="center"
+          justifyContent="space-between"
+          style={{ backgroundColor: "rebeccapurple" }}
+        >
+          <Grid item xs={1} sm={1} align="center">
+            <img alt="instagram" src={Insta} className={classes.image} />
+          </Grid>
+          {/* title */}
+          <Grid item>
+            <Grid container spacing={1} justifyContent="center" alignItems="center">
+              <Grid item>
+                <img alt="twitter" src={Twitter} className={classes.image} />
+              </Grid>
+              <Grid item align="center">
+                <Typography className={classes.typography} style={{ color: "#fff" }}>
+                  <div>A-HMIS</div>
+                  <div>Heath Management Institute System</div>
+                  <div>(AYUSH)</div>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          {/* icon */}
+          <Grid item xs={1} sm={1} align="center">
+            <img alt="Facebook" src={Facebook} className={classes.image} />
+          </Grid>
+        </Grid>
+
         <div>
           <MuiButton onClick={handleModeButtonClick}>Change theme</MuiButton>
           <Input />
@@ -76,7 +132,7 @@ function App() {
               </li>
             </ul>
           </div>
-          <button
+          {/* <button
             className={clsx({
               [classes.root]: true,
               [classes.active]: isDarkTheme,
@@ -91,7 +147,7 @@ function App() {
             <button type="button" onClick={handlePlaySong}>
               {!songState ? "play" : "pause"}
             </button>
-          </div>
+          </div> */}
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/user" component={User} />
