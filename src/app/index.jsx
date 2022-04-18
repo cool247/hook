@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import AddInput from "./AddInput";
-
 import TodoList from "./TodoList";
+//
+import "../components/App.css";
 
 const Todo = () => {
   const [todos, setTodos] = useState([]);
