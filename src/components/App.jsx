@@ -7,7 +7,8 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { theme, darkTheme } from "./theme";
 import { MuiButton } from "../ComponentLibrary/index";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, Container } from "@material-ui/core";
+import DataGrid from "./DataGrid";
 
 import { Switch, Route, Link } from "react-router-dom";
 import Sound from "../Asserts/song.wav";
@@ -115,24 +116,22 @@ function App() {
             <img alt="Facebook" src={Facebook} className={classes.image} />
           </Grid>
         </Grid>
-
+        <MuiButton onClick={handleModeButtonClick}>Change theme</MuiButton>
+        <Input />
         <div>
-          <MuiButton onClick={handleModeButtonClick}>Change theme</MuiButton>
-          <Input />
-          <div>
-            <ul>
-              <li>
-                <Link to="/">HOME</Link>
-              </li>
-              <li>
-                <Link to="/user">USER</Link>
-              </li>
-              <li>
-                <Link to="/about">ABOUT</Link>
-              </li>
-            </ul>
-          </div>
-          {/* <button
+          <ul>
+            <li>
+              <Link to="/">HOME</Link>
+            </li>
+            <li>
+              <Link to="/user">USER</Link>
+            </li>
+            <li>
+              <Link to="/about">ABOUT</Link>
+            </li>
+          </ul>
+        </div>
+        {/* <button
             className={clsx({
               [classes.root]: true,
               [classes.active]: isDarkTheme,
@@ -148,15 +147,52 @@ function App() {
               {!songState ? "play" : "pause"}
             </button>
           </div> */}
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/user" component={User} />
-            <Route path="/about" component={About} />
-          </Switch>
-        </div>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/user" component={User} />
+          <Route path="/about" component={About} />
+        </Switch>
       </ThemeProvider>
     </ErrorBoundary>
   );
 }
 
 export default App;
+
+
+// export function inputRestrict(e, removeListRegex) {
+//   const input = e.target;
+//   const start = input.selectionStart,
+//     end = input.selectionEnd;
+//   const initialLen = input.value.length;
+//   input.value = input.value.replace(removeListRegex, "");
+//   const lengthDifference = input.value.length - initialLen;
+//   if (lengthDifference) {
+//     const newStart = start + lengthDifference;
+//     const newEnd = end + lengthDifference;
+//     input.setSelectionRange(newStart, newEnd);
+//   }
+// }
+// export function inputToUpper(e) {
+//   const input = e.target,
+//     start = input.selectionStart,
+//     end = input.selectionEnd;
+//   input.value = input.value.toLocaleUpperCase();
+//   input.value = input.value.endsWith(" ") ? input.value.trim() + " " : input.value.trim();
+//   input.setSelectionRange(start, end);
+// }
+// export function inputTrim(e) {
+//   const input = e.target,
+//     start = input.selectionStart,
+//     end = input.selectionEnd;
+//   input.value = input.value.endsWith(" ") ? input.value.trim() + " " : input.value.trim();
+//   input.setSelectionRange(start, end);
+// }
+// 4:58
+// email(e) {
+//     //alphanumericdotampersand
+//     inputRestrict(e, /[^@a-zA-Z-_.\d]/g);
+//   },
+//   remarks(e) {
+//     inputRestrict(e, /[^-a-zA-Z(),&. \d]/g);
+//   },
