@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./components/App";
 
 ReactDOM.render(
-  <Suspense fallback={<div>Loading...</div>}>
+  <Suspense fallback={<div>Loading..</div>}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
