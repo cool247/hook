@@ -61,9 +61,7 @@ function App() {
   // const [songState, setSongState] = React.useState(false);
 
   const errorHandler = (error, errorInfo) => {
-    console.log("==============A-(START)=================");
     console.log(error, errorInfo);
-    console.log("==============A-(END)===================");
   };
 
   const handleModeButtonClick = () => {
