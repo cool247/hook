@@ -2,7 +2,7 @@ import React from "react";
 
 export default function User() {
   return (
-    <>
+    <div style={{ margin: "auto", width: "90%" }}>
       <h1>User</h1>
       <p>
         HEllo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores, at
@@ -774,6 +774,6 @@ export default function User() {
         magnam illo sapiente. Temporibus vel pariatur officia quibusdam numquam rerum, fuga, architecto itaque eveniet
         velit recusandae! Rerum, vero dolor.{" "}
       </p>
-    </>
+    </div>
   );
 }

@@ -1,0 +1,7 @@
+date	size'/'remotesize	flags(request:Update,Range state:File response:Modified,Chunked,gZipped)	statuscode	status ('servermsg')	MIME	Etag|Date	URL	localfile	(from URL)
+22:53:17	1230/1230	---M-Z	200	added ('OK')	text/html	etag:W/%225f272aed-4ce%22	https://material-table.com/	C:/Users/Asus/Music/material-table/material-table.com/index.html	(from )
+22:53:17	5232/5232	---M-Z	404	error ('Not%20Found')	text/html	etag:W/%2262f58ae1-247b%22	https://material-table.com/robots.txt		(from )
+22:53:17	16694/16694	---M--	200	added ('OK')	image/vnd.microsoft.icon	etag:%225f272aed-4136%22	https://material-table.com/assets/favicon.ico	C:/Users/Asus/Music/material-table/material-table.com/assets/favicon.ico	(from https://material-table.com/)
+22:53:17	54456/54456	---MCZ	200	added ('OK')	text/css	etag:W/%227b1d7f457d056ace7b230b587b9f3753%22	https://use.fontawesome.com/releases/v5.7.2/css/all.css	C:/Users/Asus/Music/material-table/use.fontawesome.com/releases/v5.7.2/css/all.css	(from https://material-table.com/)
+22:53:18	171542/171542	---M--	200	added ('OK')	text/javascript	etag:4219811750681233959	https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js	C:/Users/Asus/Music/material-table/pagead2.googlesyndication.com/pagead/js/f.txt	(from https://material-table.com/)
+22:53:25	2125570/2125570	---M-Z	200	added ('OK')	application/javascript	etag:W/%225f272aed-206f02%22	https://material-table.com/js/main.76b9c451312886bff0c5.js	C:/Users/Asus/Music/material-table/material-table.com/js/main.76b9c451312886bff0c5.js	(from https://material-table.com/)
