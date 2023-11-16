@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+// import './App.css';
 import clsx from 'clsx';
 import Input from './atom';
 import { useAtom } from 'jotai';
@@ -18,6 +18,9 @@ import Insta from '../app/insta.webp';
 import Twitter from '../app/twitter.png';
 import { themeAtom } from '../Atom/atoms';
 import ReactHook from '../react-hook-form';
+import MTablePagination from '../pagination';
+import { useState } from 'react';
+import BasicSearch from '../Mtable';
 
 const Home = React.lazy(() => import('../routing/Home'));
 const About = React.lazy(() => import('../routing/About'));
@@ -57,46 +60,34 @@ const useStyles = makeStyles({
 });
 
 function App() {
-  const audioRef = React.useRef();
-  const classes = useStyles();
+  // State for pagination
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10); // You can set your initial rowsPerPage value
+  const [totalRows, setTotalRows] = useState(100); // Total number of rows in your data
 
-  const [songState, setSongState] = React.useState(false);
-  const [isDarkTheme] = useAtom(themeAtom);
-
-  const errorHandler = (error, errorInfo) => {
-    console.log('==============A-(START)=================');
-    console.log(error, errorInfo);
-    console.log('==============A-(END)===================');
+  // Function to handle page change
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+    // You may want to fetch the new page of data here if using an API
   };
 
-  const handlePlaySong = () => {
-    setSongState((ps) => !ps);
-    if (!songState) {
-      audioRef.current.play().catch((e) => console.log(e));
-    } else {
-      audioRef.current.pause();
-      console.log('his');
-    }
-    console.log(audioRef.current.currentTime, 'audioRef');
+  // Function to handle rows per page change
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to the first page when changing rowsPerPage
+    // You may want to fetch the new page of data here if using an API
   };
 
-  const jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+  return (
+    <div>
+      {/* Your data rendering logic goes here */}
 
-  function parseJwt (token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    return JSON.parse(jsonPayload);
-};
-
-    console.log(parseJwt(jwt),"jwt")
-
-  if (process.env.REACT_DEV_MODE !== 'development') console.log = () => {};
-
-  return <ReactHook />;
+      {/* Include the MTablePagination component */}
+      <BasicSearch
+        
+      />
+    </div>
+  );
 }
 
 export default App;

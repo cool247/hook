@@ -1,19 +1,12 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import TablePagination from '@mui/material/TablePagination';
-import Mpagination from './Mpagination';
+import { CustomPaginationComponent } from './Mpagination';
 
 export default function BasicSearch() {
   return (
     <MaterialTable
       title="Basic Search Preview"
-      components={{
-        pagination: (props) => (
-          <TablePagination style={{ backgroundColor: '#e8eaf5' }}>
-            <Mpagination {...props} />
-          </TablePagination>
-        ),
-      }}
+
       columns={[
         { title: 'Name', field: 'name' },
         { title: 'Surname', field: 'surname' },
@@ -26,6 +19,28 @@ export default function BasicSearch() {
       ]}
       data={[
         { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
         {
           name: 'Zerya Betül',
           surname: 'Baran',
@@ -33,8 +48,12 @@ export default function BasicSearch() {
           birthCity: 34,
         },
       ]}
-      options={{
-        search: true,
+
+      components={{
+
+        Pagination: (props) => {
+          return <CustomPaginationComponent {...props} />;
+        }
       }}
     />
   );
